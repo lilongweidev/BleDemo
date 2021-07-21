@@ -40,6 +40,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private static final String TAG = MainActivity.class.getSimpleName();
     /**
      * 请求打开蓝牙
