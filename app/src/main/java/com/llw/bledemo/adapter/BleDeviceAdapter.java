@@ -8,6 +8,7 @@ import com.llw.bledemo.bean.BleDevice;
 import java.util.List;
 
 /**
+ * Ble设备适配器
  * @author llw
  * @description BleDeviceAdapter
  * @date 2021/7/21 19:34

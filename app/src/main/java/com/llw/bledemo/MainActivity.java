@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -18,7 +19,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -28,9 +31,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.llw.bledemo.adapter.BleDeviceAdapter;
 import com.llw.bledemo.bean.BleDevice;
+import com.llw.easyutil.EasySP;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat;
 import no.nordicsemi.android.support.v18.scanner.ScanCallback;
@@ -96,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //初始化
         initView();
         //检查Android版本
@@ -147,11 +152,20 @@ public class MainActivity extends AppCompatActivity {
      */
     private void connectDevice(BleDevice bleDevice) {
         //显示连接等待布局
-        layConnectingLoading.setVisibility(View.VISIBLE);
-
+        //layConnectingLoading.setVisibility(View.VISIBLE);
         //停止扫描
         stopScanDevice();
 
+        //跳转页面
+        Intent intent = new Intent(this,DataExchangeActivity.class);
+        intent.putExtra("device",bleDevice.getDevice());
+        startActivity(intent);
+
+        //连接Gatt
+        //connectGatt(bleDevice);
+    }
+
+    private void connectGatt(BleDevice bleDevice) {
         //获取远程设备
         BluetoothDevice device = bleDevice.getDevice();
         //连接gatt
@@ -165,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             layConnectingLoading.setVisibility(View.GONE);
                             showMsg("连接成功");
+                            //放入缓存
+                            EasySP.putString("address",device.getAddress());
                         });
                         break;
                     case BluetoothProfile.STATE_DISCONNECTED://断开连接
@@ -180,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     /**

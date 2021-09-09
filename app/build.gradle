@@ -43,4 +43,6 @@ dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
     //让你的适配器一目了然，告别代码冗余
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+    //Easy库
+    implementation 'com.github.lilongweidev:EasyLibrary:1.0.4'
 }

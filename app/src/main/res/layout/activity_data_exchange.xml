@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp_20"
+    tools:context=".DataExchangeActivity">
+    <EditText
+        android:id="@+id/et_command"
+        android:hint="请输入指令"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+    <Button
+        android:id="@+id/btn_send_command"
+        android:layout_marginTop="10dp"
+        android:text="发送指令"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+</LinearLayout>
